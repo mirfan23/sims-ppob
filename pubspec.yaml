@@ -1,0 +1,29 @@
+name: sims_ppob
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  cached_network_image: ^3.2.3
+  carousel_slider: ^4.2.1
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_easyloading: ^3.0.5
+  get: ^4.6.5
+  http: ^1.1.0
+  image_picker: ^1.0.4
+  intl: ^0.18.1
+  provider: ^6.0.5
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/images/
+  uses-material-design: true
