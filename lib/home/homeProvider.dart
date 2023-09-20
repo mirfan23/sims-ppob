@@ -1,14 +1,14 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../aaModel/balance.dart';
 import '../aaModel/banner.dart';
 import '../aaModel/services.dart';
 import '../helper/const.dart';
 
 class HomeProvider with ChangeNotifier {
+  final dio = Dio();
   int _balance = 0;
   int get balance => _balance;
   bool _isBalanceVisible = false;
@@ -21,39 +21,39 @@ class HomeProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<BannerResponse> fetchBanners(String? token) async {
-    final String apiUrl = '$baseUrl/banner';
-    final response = await http.get(
-      Uri.parse(apiUrl),
-      headers: <String, String>{
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
+  Future<BannerResponse> fetchBanners2(String? token) async {
+    final String bannerUrl = '$baseUrl/banner';
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = json.decode(response.body);
-      return BannerResponse.fromJson(responseData);
-    } else {
-      print('Failed to load banners. Status code: ${response.statusCode}');
-      throw Exception('Failed to load banners');
+    try {
+      dio.options.headers['Content-Type'] = 'application/json';
+      dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await dio.get(bannerUrl);
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = response.data;
+        return BannerResponse.fromJson(responseData);
+      } else {
+        print('Failed to load banners. Status code: ${response.statusCode}');
+        throw Exception('Failed to load banners');
+      }
+    } catch (e) {
+      print('Error while fetching banner: $e');
+      throw Exception('Failed to load banners 2');
     }
   }
 
-  Future<void> fetchBalance(String? token) async {
-    final apiUrl = '$baseUrl/balance';
+  Future<void> fetchBalance2(String? token) async {
+    final balanceUrl = '$baseUrl/balance';
 
     try {
-      final response = await http.get(
-        Uri.parse(apiUrl),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
+      dio.options.headers['Content-Type'] = 'application/json';
+      dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await dio.get(balanceUrl);
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Map<String, dynamic> responseData = response.data;
         final balanceModel = BalanceModel.fromJson(responseData);
 
         _balance = balanceModel.data.balance;
@@ -68,18 +68,17 @@ class HomeProvider with ChangeNotifier {
     }
   }
 
-  Future<void> fetchServices(String? token) async {
+  Future<void> fetchService2(String? token) async {
+    final serviceUrl = '$baseUrl/services';
+
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl/services'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-      );
-      // print(response.statusCode);
+      dio.options.headers['Content-Type'] = 'application/json';
+      dio.options.headers['Authorization'] = 'Bearer $token';
+
+      final response = await dio.get(serviceUrl);
+
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
+        final Map<String, dynamic> data = response.data;
 
         if (data['status'] == 0) {
           final List<dynamic> serviceData = data['data'];
@@ -89,17 +88,16 @@ class HomeProvider with ChangeNotifier {
 
           _services = serviceList;
           notifyListeners();
-          print(response.body);
+          print(response.data);
         } else {
-          // print(response.body);
-          throw Exception('Failed to load services');
+          throw Exception('Failed to load service');
         }
       } else {
-        throw Exception('Failed to load services');
+        throw Exception('Failed to load services 2');
       }
     } catch (e) {
-      // print(e);
-      throw e;
+      print('Error: $e');
+      throw Exception('Failed to load services 3');
     }
   }
 }

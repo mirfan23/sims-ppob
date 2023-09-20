@@ -58,7 +58,7 @@ class _SaldoTopUpState extends State<SaldoTopUp> {
               ),
               InkWell(
                 onTap: () {
-                  balanceProvider.fetchBalance(token);
+                  balanceProvider.fetchBalance2(token);
                 },
                 child: Row(
                   children: [
@@ -75,7 +75,7 @@ class _SaldoTopUpState extends State<SaldoTopUp> {
                         size: 18,
                       ),
                       onPressed: () {
-                        balanceProvider.fetchBalance(token);
+                        balanceProvider.fetchBalance2(token);
                         balanceProvider.toggleBalanceVisibility();
                       },
                     ),

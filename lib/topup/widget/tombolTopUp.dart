@@ -19,7 +19,7 @@ class TombolTopUp extends StatelessWidget {
         alignment: Alignment.center,
         child: ElevatedButton(
           onPressed: topUpProvider.isButtonEnabled
-              ? () => topUpProvider.performTopUp(context, token)
+              ? () => topUpProvider.performTopUp2(context, token)
               : null,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,

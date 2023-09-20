@@ -18,14 +18,12 @@ class Voucher extends StatelessWidget {
       final token = authProvider.token;
 
       return FutureBuilder<BannerResponse>(
-        future: bannerProvider
-            .fetchBanners(token), 
+        future: bannerProvider.fetchBanners2(token),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else if (!snapshot.hasData || snapshot.data!.data.isEmpty) {
-            return const Text(
-                'Tidak ada data banner.'); 
+            return const Text('Tidak ada data banner.');
           } else {
             final banners = snapshot.data!.data;
 

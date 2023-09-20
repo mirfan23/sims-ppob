@@ -243,7 +243,7 @@ class RegisterView extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     // Navigasi ke halaman login jika sudah memiliki akun
-                    Navigator.pushReplacementNamed(context, '/dashboard');
+                    Navigator.pushReplacementNamed(context, '/login');
                   },
                   child: const Text('disni'),
                 ),

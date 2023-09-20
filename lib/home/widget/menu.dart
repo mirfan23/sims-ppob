@@ -20,11 +20,8 @@ class Menu extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(16),
             child: FutureBuilder<void>(
-              future: serviceProvider.fetchServices(token),
+              future: serviceProvider.fetchService2(token),
               builder: (context, snapshot) {
-                // if (snapshot.connectionState == ConnectionState.waiting) {
-                //   return const CircularProgressIndicator();
-                // } else
                 if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (snapshot.hasData) {
@@ -36,9 +33,6 @@ class Menu extends StatelessWidget {
                             crossAxisCount: 6),
                     itemCount: services.length,
                     itemBuilder: (context, index) {
-                      // final service = services[index];
-                      // final serviceIcon = service.serviceIcon;
-                      // final serviceName = service.serviceName;
                       return GestureDetector(
                         onTap: () {},
                         child: Column(
@@ -47,13 +41,6 @@ class Menu extends StatelessWidget {
                               backgroundImage: AssetImage(MyList.icon[index]),
                               radius: 20,
                             ),
-                            // const SizedBox(
-                            //   height: 8,
-                            // ),
-                            // Text(
-                            //   serviceName,
-                            //   style: const TextStyle(fontSize: 11),
-                            // ),
                           ],
                         ),
                       );
