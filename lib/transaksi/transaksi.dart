@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/transaksi/widget/histori_transaksi.dart';
 import 'package:sims_ppob/transaksi/widget/saldoTransaksi.dart';
@@ -27,7 +26,7 @@ class Transaksi extends StatelessWidget {
             centerTitle: true,
           ),
           body: SingleChildScrollView(
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

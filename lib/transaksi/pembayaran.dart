@@ -1,83 +1,3 @@
-// import 'dart:convert';
-
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:sims_ppob/helper/const.dart';
-
-// import '../aaModel/transaction.dart';
-
-// class TransactionPage extends StatelessWidget {
-//   final String serviceCode;
-//   final String? token;
-
-//   const TransactionPage({
-//     required this.serviceCode,
-//     required this.token,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Future<Transaction> fetchTransactionData() async {
-//       try {
-//         final apiUrl = '$baseUrl/transaction';
-
-//         final response = await http.get(
-//           Uri.parse(apiUrl),
-//           headers: {
-//             'Authorization': 'Bearer $token', // Mengirim token di header
-//           },
-//         );
-//         print(response.statusCode);
-//         if (response.statusCode == 200) {
-//           final Map<String, dynamic> responseData = json.decode(response.body);
-//           return Transaction.fromJson(responseData);
-//         } else {
-//           throw Exception('Gagal mengambil data transaksi');
-//         }
-//       } catch (e) {
-//         print(e);
-//         throw Exception('Terjadi kesalahan saat mengambil data transaksi: $e');
-//       }
-//     }
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Detail Transaksi - $serviceCode'),
-//       ),
-//       body: FutureBuilder<Transaction>(
-//         future: fetchTransactionData(),
-//         builder: (context, snapshot) {
-//           if (snapshot.connectionState == ConnectionState.waiting) {
-//             return CircularProgressIndicator();
-//           } else if (snapshot.hasError) {
-//             return Text('Error: ${snapshot.error}');
-//           } else if (!snapshot.hasData) {
-//             return Text('Tidak ada data transaksi.');
-//           } else {
-//             final transaction = snapshot.data!;
-//             return Padding(
-//               padding: const EdgeInsets.all(16.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text('Invoice Number: ${transaction.data.invoiceNumber}'),
-//                   Text('Service Code: ${transaction.data.serviceCode}'),
-//                   Text('Service Name: ${transaction.data.serviceName}'),
-//                   Text('Transaction Type: ${transaction.data.transactionType}'),
-//                   Text('Total Amount: ${transaction.data.totalAmount}'),
-//                   Text(
-//                       'Created On: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(transaction.data.createdOn)}'),
-//                 ],
-//               ),
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
@@ -101,8 +21,7 @@ class Transaksi2 extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final token = authProvider.token;
 
-    final url =
-        '$baseUrl/transaction'; // Gantilah URL API sesuai dengan kebutuhan Anda
+    final url = '$baseUrl/transaction';
 
     final requestBody = {
       "service_code": serviceCode,
@@ -123,8 +42,6 @@ class Transaksi2 extends StatelessWidget {
         final transactionResponse = TransactionResponse.fromJson(responseData);
 
         if (transactionResponse.status == 0) {
-          // Transaksi berhasil
-          // Tampilkan informasi transaksi kepada pengguna sesuai kebutuhan
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -132,8 +49,6 @@ class Transaksi2 extends StatelessWidget {
             ),
           );
         } else {
-          // Transaksi gagal
-          // Tampilkan pesan kesalahan kepada pengguna sesuai kebutuhan
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(transactionResponse.message),

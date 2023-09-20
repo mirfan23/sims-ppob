@@ -28,12 +28,12 @@ class MyList {
     const AssetImage("assets/images/Banner 5.png"),
   ];
   static List<String> nominal = [
-    '10.000',
-    '20.000',
-    '50.000',
-    '100.000',
-    '250.000',
-    '500.000',
+    '10000',
+    '20000',
+    '50000',
+    '100000',
+    '250000',
+    '500000',
   ];
 
   static List navigationButtonsProperties = [

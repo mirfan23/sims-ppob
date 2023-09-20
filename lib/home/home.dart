@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sims_ppob/home/widget/menu.dart';
 import 'package:sims_ppob/home/widget/saldo.dart';
 import 'package:sims_ppob/home/widget/service.dart';
 import 'package:sims_ppob/home/widget/voucher.dart';
-
-import 'homeProvider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
-    final services = homeProvider.services;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Scaffold(

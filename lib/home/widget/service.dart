@@ -41,8 +41,6 @@ class ServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(builder: (authContext, authProvider, _) {
-      final bannerProvider = Provider.of<HomeProvider>(context);
-      final token = authProvider.token;
       return Card(
         elevation: 2,
         shape: RoundedRectangleBorder(

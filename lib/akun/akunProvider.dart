@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import '../aaModel/profile.dart';
+import '../helper/const.dart';
 
 Future<ProfileResponse> updateProfileImage(String token, File imageFile) async {
-  final url = Uri.parse(
-      'https://take-home-test-api.nutech-integrasi.app/profile/image');
+  final url = Uri.parse('$baseUrl/profile/image');
 
   try {
     final request = http.MultipartRequest('PUT', url);
