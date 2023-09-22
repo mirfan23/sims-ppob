@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../aaModel/services.dart';
-import '../../login/authProvider.dart';
+import '../../login/auth_provider.dart';
 import '../../transaksi/pembayaran.dart';
-import '../homeProvider.dart';
+import '../home_provider.dart';
 
 class ServiceGrid extends StatelessWidget {
   @override

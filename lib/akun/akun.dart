@@ -5,9 +5,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sims_ppob/akun/akunProvider.dart';
+import 'package:sims_ppob/akun/akun_provider.dart';
 
-import '../login/authProvider.dart';
+import '../login/auth_provider.dart';
 
 class Akun extends StatefulWidget {
   @override
@@ -21,7 +21,6 @@ class _AkunState extends State<Akun> {
   String _profileImage = '';
 
   final ImagePicker _picker = ImagePicker();
-
   Future<void> _pickImage() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 

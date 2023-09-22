@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/helper/string_extension.dart';
-import 'authProvider.dart';
+import 'auth_provider.dart';
 
 class LoginView extends StatelessWidget {
   @override
@@ -57,7 +57,7 @@ class LoginView extends StatelessWidget {
               height: 40,
             ),
             TextFormField(
-              onChanged: (value) => authProvider.setEmail(value),
+              onChanged: (value) => authProvider.setEmailLogin(value),
               decoration: InputDecoration(
                 hintText: 'Email',
                 border: OutlineInputBorder(
@@ -82,7 +82,7 @@ class LoginView extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
-              onChanged: (value) => authProvider.setPassword(value),
+              onChanged: (value) => authProvider.setPasswordLogin(value),
               decoration: InputDecoration(
                 hintText: 'Password',
                 border: OutlineInputBorder(
@@ -120,9 +120,9 @@ class LoginView extends StatelessWidget {
             ElevatedButton(
               onPressed: authProvider.isValid
                   ? () async {
-                      final response = await authProvider.logIn(
-                        email: authProvider.email,
-                        password: authProvider.password,
+                      final response = await authProvider.logIn2(
+                        email: authProvider.emailLogin,
+                        password: authProvider.passwordLogin,
                       );
                       if (response != null && response.status == 0) {
                         // Berhasil login, lakukan navigasi ke halaman selanjutnya

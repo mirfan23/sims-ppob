@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/transaksi/widget/histori_transaksi.dart';
-import 'package:sims_ppob/transaksi/widget/saldoTransaksi.dart';
-import 'package:sims_ppob/transaksi/widget/trancsactionHistory.dart';
+import 'package:sims_ppob/transaksi/widget/saldo_transaksi.dart';
+import 'package:sims_ppob/transaksi/widget/trancsaction_history.dart';
 
-import '../login/authProvider.dart';
-import 'transaksiProvider.dart';
+import '../login/auth_provider.dart';
+import 'transaksi_provider.dart';
 
 class Transaksi extends StatelessWidget {
   const Transaksi({super.key});

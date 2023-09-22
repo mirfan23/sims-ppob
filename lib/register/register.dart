@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/helper/string_extension.dart';
 
-import '../login/authProvider.dart';
+import '../login/auth_provider.dart';
 
 class RegisterView extends StatelessWidget {
   @override
@@ -191,14 +191,14 @@ class RegisterView extends StatelessWidget {
             const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () async {
-                final response = await authProvider.register(
+                final response = await authProvider.register2(
                   email: authProvider.email,
                   firstName: authProvider.firstName,
                   lastName: authProvider.lastName,
                   password: authProvider.password,
                 );
                 if (response != null && response.status == 0) {
-                  // Berhasil registrasi, lakukan navigasi ke halaman login
+                  // Berhasil registrasi, lakukan navigasi ke hSalaman login
                   Navigator.pushReplacementNamed(context, '/login');
                 } else {
                   // Tampilkan pesan kesalahan

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../helper/myList.dart';
-import '../home/homeController.dart';
+import '../home/home_controller.dart';
 
 class DashBoard extends StatelessWidget {
   final controller = Get.put(HomeController());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../transaksiProvider.dart';
+import '../transaksi_provider.dart';
 
 class HistoriTransaksi extends StatelessWidget {
   const HistoriTransaksi({

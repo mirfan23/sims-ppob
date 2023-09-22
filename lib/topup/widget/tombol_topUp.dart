@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../login/authProvider.dart';
-import '../topUpProvider.dart';
+import '../../login/auth_provider.dart';
+import '../top_up_provider.dart';
 
 class TombolTopUp extends StatelessWidget {
   const TombolTopUp({

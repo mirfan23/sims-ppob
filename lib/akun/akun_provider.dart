@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 
+import '../aaModel/get_profile.dart';
 import '../aaModel/profile.dart';
 import '../helper/const.dart';
 
@@ -38,8 +40,7 @@ Future<ProfileResponse> updateProfileImage(String token, File imageFile) async {
 
 Future<ProfileResponse> updateProfile(
     String email, String firstName, String lastName) async {
-  final url = Uri.parse(
-      'https://take-home-test-api.nutech-integrasi.app/profile/update');
+  final url = Uri.parse('$baseUrl/profile/update');
 
   try {
     final body = json.encode({
@@ -63,5 +64,31 @@ Future<ProfileResponse> updateProfile(
     }
   } catch (error) {
     throw Exception('Error: $error');
+  }
+}
+
+final dio = Dio();
+Future<GetProfile> getProfile(String email, String firstName, String lastName,
+    String profileImage, String? token) async {
+  final getProfileUrl = '$baseUrl/profile';
+
+  try {
+    final response = await dio.get(
+      getProfileUrl,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      return GetProfile.fromJson(response.data);
+    } else {
+      throw Exception('Gagal mengambil data profile');
+    }
+  } catch (e) {
+    throw Exception(e);
   }
 }

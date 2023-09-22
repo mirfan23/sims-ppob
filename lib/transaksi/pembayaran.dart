@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:sims_ppob/helper/const.dart';
-import 'package:sims_ppob/transaksi/widget/saldoTransaksi.dart';
+import 'package:sims_ppob/transaksi/widget/saldo_transaksi.dart';
 import 'dart:convert';
 
 import '../aaModel/transaction.dart';
-import '../login/authProvider.dart';
+import '../login/auth_provider.dart';
 
 class Transaksi2 extends StatelessWidget {
   final String serviceCode;

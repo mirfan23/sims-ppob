@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../login/authProvider.dart';
-import '../transaksiProvider.dart';
+import '../../login/auth_provider.dart';
+import '../transaksi_provider.dart';
 
 // Import TransactionHistoryProvider dan model di sini
 

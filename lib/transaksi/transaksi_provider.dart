@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sims_ppob/helper/const.dart';
 import '../aaModel/transaction.dart';
 import '../aaModel/transaction_history.dart';
 
@@ -9,7 +10,7 @@ class TransactionProvider extends ChangeNotifier {
 
   Future<void> fetchTransactions(String? token) async {
     final url = Uri.parse(
-        'https://take-home-test-api.nutech-integrasi.app/transaction/'); // Ganti dengan URL API transaksi Anda
+        '$baseUrl/transaction/'); // Ganti dengan URL API transaksi Anda
 
     try {
       final response = await http.get(

@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
@@ -8,11 +8,14 @@ import '../aaModel/registrasi.dart';
 import '../helper/const.dart';
 
 class AuthProvider with ChangeNotifier {
+  final dio = Dio();
   var client = http.Client();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String _email = '';
   String _password = '';
+  String _emailLogin = '';
+  String _passwordLogin = '';
   String _firstName = '';
   String _lastName = '';
   bool _isValid = false;
@@ -26,6 +29,8 @@ class AuthProvider with ChangeNotifier {
   String? get token => _token;
   String get email => _email;
   String get password => _password;
+  String get emailLogin => _emailLogin;
+  String get passwordLogin => _passwordLogin;
   String get firstName => _firstName;
   String get lastName => _lastName;
   bool get isValid => _isValid;
@@ -39,6 +44,18 @@ class AuthProvider with ChangeNotifier {
 
   void setPassword(String value) {
     _password = value;
+    _validateForm();
+    notifyListeners();
+  }
+
+  void setEmailLogin(String value) {
+    _emailLogin = value;
+    _validateForm();
+    notifyListeners();
+  }
+
+  void setPasswordLogin(String value) {
+    _passwordLogin = value;
     _validateForm();
     notifyListeners();
   }
@@ -77,55 +94,53 @@ class AuthProvider with ChangeNotifier {
     return _token;
   }
 
-  Future<LoginResponse?> logIn({
+  Future<LoginResponse?> logIn2({
     required String email,
     required String password,
   }) async {
-    final String apiUrl = '$baseUrl/login';
+    final String logInUrl = '$baseUrl/login';
 
-    final Map<String, String> requestBody = {
+    final Map<String, dynamic> requestBody = {
       'email': email,
       'password': password,
     };
 
     try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $token',
-        },
-        body: jsonEncode(requestBody),
-      );
-
+      final response = await dio.post(logInUrl,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $token',
+            },
+          ),
+          data: requestBody);
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
-        final loginResponse = LoginResponse.fromJson(responseData);
+        final Map<String, dynamic> responseData = response.data;
+        final logInResponse = LoginResponse.fromJson(responseData);
 
-        // Simpan token ke dalam variabel _token
-        setToken(loginResponse.data?.token ?? '');
+        //simpan token
+        setToken(logInResponse.data?.token ?? '');
         print('$token');
 
-        return loginResponse;
+        return logInResponse;
       } else {
-        EasyLoading.showError('Terjadi Kesalahan. Coba Lagi!');
-        return null;
+        EasyLoading.showError('Terjadi kesalahan. Coba Lagi 1');
       }
     } catch (e) {
-      EasyLoading.showError('Terjadi Kesalahan. Coba Lagi!');
-      return null;
+      EasyLoading.showError('Terjadi kesalahan. Coba Lagi 2');
     }
+    return null;
   }
 
-  Future<RegisterResponse> register({
+  Future<RegisterResponse> register2({
     required String email,
     required String firstName,
     required String lastName,
     required String password,
   }) async {
-    final String apiUrl = '$baseUrl/registration';
+    final String registerUrl = '$baseUrl/registration';
 
-    final Map<String, String> requestBody = {
+    final Map<String, dynamic> requestBody = {
       'email': email,
       'first_name': firstName,
       'last_name': lastName,
@@ -133,25 +148,25 @@ class AuthProvider with ChangeNotifier {
     };
 
     try {
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestBody),
+      final response = await dio.post(
+        registerUrl,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        ),
+        data: requestBody,
       );
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        final Map<String, dynamic> responseData = json.decode(response.body);
+        final Map<String, dynamic> responseData = response.data;
         return RegisterResponse.fromJson(responseData);
       } else {
-        print(response.body);
-        throw Exception('Failed to register');
+        print(response.data);
+        throw Exception('Gagal mendaftar.');
       }
     } catch (e) {
-      EasyLoading.showError('Terjadi Kesalahan. Coba Lagi!: $e');
-      // return null;
-      throw Exception('An error occurred: $e');
+      EasyLoading.showError('Terjadi Kesalahan. Coba Lagi! : $e');
+      throw Exception('Terjadi Kesalahan. Coba Lagi! : $e');
     }
   }
 

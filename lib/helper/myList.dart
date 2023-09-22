@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sims_ppob/akun/profile_page.dart';
 
 import '../akun/akun.dart';
 import '../home/home.dart';
-import '../topup/topUp.dart';
+import '../topup/top_up.dart';
 import '../transaksi/transaksi.dart';
 
 class MyList {
@@ -63,6 +64,7 @@ class MyList {
     const Home(),
     const TopUp(),
     const Transaksi(),
-    Akun()
+    // Akun(),
+    ProfilePage(),
   ];
 }

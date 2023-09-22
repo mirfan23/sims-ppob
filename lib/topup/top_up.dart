@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sims_ppob/topup/topUpProvider.dart';
-import 'package:sims_ppob/topup/widget/gridNominal.dart';
-import 'package:sims_ppob/topup/widget/nominalTransaksi.dart';
-import 'package:sims_ppob/topup/widget/saldoTopUp.dart';
-import 'package:sims_ppob/topup/widget/tombolTopUp.dart';
+import 'package:sims_ppob/topup/top_up_provider.dart';
+import 'package:sims_ppob/topup/widget/grid_nominal.dart';
+import 'package:sims_ppob/topup/widget/nominal_transaksi.dart';
+import 'package:sims_ppob/topup/widget/saldo_topUp.dart';
+import 'package:sims_ppob/topup/widget/tombol_topUp.dart';
 
 class TopUp extends StatelessWidget {
   const TopUp({super.key});

@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sims_ppob/home/homeProvider.dart';
+import 'package:sims_ppob/home/home_provider.dart';
 
 import '../../aaModel/banner.dart';
-import '../../login/authProvider.dart';
+import '../../login/auth_provider.dart';
 
 class Voucher extends StatelessWidget {
   const Voucher({
@@ -51,7 +51,7 @@ class Voucher extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(10),
       child: Image.network(
-        banners[index].bannerImage, // Menggunakan URL gambar dari data banner
+        banners[index].bannerImage,
         width: double.infinity,
         fit: BoxFit.cover,
       ),

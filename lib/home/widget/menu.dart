@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/helper/myList.dart';
 
-import '../../login/authProvider.dart';
-import '../homeProvider.dart';
+import '../../login/auth_provider.dart';
+import '../home_provider.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
