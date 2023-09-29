@@ -118,38 +118,37 @@ class LoginView extends StatelessWidget {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: authProvider.isValid
-                  ? () async {
-                      final response = await authProvider.logIn2(
-                        email: authProvider.emailLogin,
-                        password: authProvider.passwordLogin,
+              onPressed: () async {
+                final response = await authProvider.logIn2(
+                  email: authProvider.emailLogin,
+                  password: authProvider.passwordLogin,
+                );
+                if (response != null && response.status == 0) {
+                  // Berhasil login, lakukan navigasi ke halaman selanjutnya
+                  Navigator.pushReplacementNamed(context, '/dashboard');
+                } else {
+                  // Tampilkan pesan kesalahan
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Login Gagal'),
+                        content: Text(response?.message ??
+                            'Terjadi kesalahan saat login.'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Tutup'),
+                          ),
+                        ],
                       );
-                      if (response != null && response.status == 0) {
-                        // Berhasil login, lakukan navigasi ke halaman selanjutnya
-                        Navigator.pushReplacementNamed(context, '/dashboard');
-                      } else {
-                        // Tampilkan pesan kesalahan
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Login Gagal'),
-                              content: Text(response?.message ??
-                                  'Terjadi kesalahan saat login.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Tutup'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    }
-                  : null,
+                    },
+                  );
+                }
+              },
+              // : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
                 fixedSize: const Size(

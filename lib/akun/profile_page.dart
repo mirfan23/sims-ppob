@@ -1,17 +1,18 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../home/home_provider.dart';
 import '../login/auth_provider.dart';
 import 'profile_provider.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final profileProvider =
-        ProfileProvider(Dio()); // Inisialisasi ApiService sesuai kebutuhan Anda
+    final profileProvider = ProfileProvider(Dio());
+
     return Consumer<AuthProvider>(builder: (authContext, authProvider, _) {
-      final _token = authProvider.token;
+      final token_ = authProvider.token;
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -32,7 +33,6 @@ class ProfilePage extends StatelessWidget {
               builder: (context, provider, child) {
                 final profile = provider.profile;
                 if (profile == null) {
-                  // Data belum diambil, tampilkan loading atau pesan lainnya
                   return const CircularProgressIndicator();
                 } else {
                   // Tampilkan data profil di sini
@@ -46,6 +46,7 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(height: 16.0),
                       TextFormField(
                         initialValue: profile.data.email,
+                        readOnly: true,
                         decoration: InputDecoration(
                           labelText: 'Email',
                           border: OutlineInputBorder(
@@ -55,15 +56,11 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // onChanged: (value) {
-                        //   setState(() {
-                        //     _email = value;
-                        //   });
-                        // },
                       ),
                       const SizedBox(height: 16.0),
                       TextFormField(
-                        initialValue: profile.data.firstName,
+                        controller: provider.firstNameController,
+                        // initialValue: profile.data.firstName,
                         decoration: InputDecoration(
                           labelText: 'First Name',
                           border: OutlineInputBorder(
@@ -73,15 +70,14 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // onChanged: (value) {
-                        //   setState(() {
-                        //     _email = value;
-                        //   });
-                        // },
+                        onChanged: (value) {
+                          profileProvider.setFirstName(value);
+                        },
                       ),
                       const SizedBox(height: 16.0),
                       TextFormField(
-                        initialValue: profile.data.lastName,
+                        controller: provider.lastNameController,
+                        // initialValue: profile.data.lastName,
                         decoration: InputDecoration(
                           labelText: 'Last Name',
                           border: OutlineInputBorder(
@@ -91,16 +87,35 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // onChanged: (value) {
-                        //   setState(() {
-                        //     _email = value;
-                        //   });
-                        // },
+                        onChanged: (value) {
+                          profileProvider.setLastName(value);
+                        },
                       ),
                       const SizedBox(height: 16.0),
                       ElevatedButton(
-                        // onPressed: _updateProfile,
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            final token = token_;
+                            final firstName = profileProvider.firstName;
+                            final lastName = profileProvider.lastName;
+
+                            await profileProvider.updateProfile(
+                                token!, firstName, lastName);
+
+                            final profile =
+                                await profileProvider.getProfile(token);
+                            Provider.of<ProfileProvider>(context, listen: false)
+                                .setProfile(profile);
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Gagal mengupdate profil: $e'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                            print('Gagal update profile: $e');
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           fixedSize: const Size(
@@ -112,6 +127,46 @@ class ProfilePage extends StatelessWidget {
                           ),
                         ),
                         child: const Text('Edit Profile',
+                            style: TextStyle(color: Colors.white)),
+                      ),
+                      const SizedBox(height: 16.0),
+                      ElevatedButton(
+                        onPressed: () async {
+                          // try {
+                          //   final token =
+                          //       token_;
+                          //   final imageFile = File(
+                          //       'path_to_image.jpg'); // Ganti dengan lokasi gambar Anda
+                          //   final formData = FormData.fromMap({
+                          //     'file': await MultipartFile.fromFile(
+                          //         imageFile.path,
+                          //         filename: 'profile_image.jpg'),
+                          //   });
+
+                          //   await profileProvider.updateProfileImage(
+                          //       token!, formData);
+
+                          //   // Perbarui data profil setelah pembaruan gambar berhasil
+                          //   final profile =
+                          //       await profileProvider.getProfile(token);
+                          //   Provider.of<ProfileProvider>(context, listen: false)
+                          //       .setProfile(profile);
+                          // } catch (e) {
+                          //   print('Error updating profile image: $e');
+                          //   // Handle kesalahan dengan menampilkan pesan kesalahan atau mengambil tindakan yang sesuai.
+                          // }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          fixedSize: const Size(
+                            200,
+                            50,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                        ),
+                        child: const Text('Edit Gambar',
                             style: TextStyle(color: Colors.white)),
                       ),
                       const SizedBox(height: 16.0),
@@ -145,7 +200,7 @@ class ProfilePage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             try {
-              final token = _token; // Ganti dengan token autentikasi Anda
+              final token = token_; // Ganti dengan token autentikasi Anda
               final profile = await profileProvider.getProfile(token!);
               Provider.of<ProfileProvider>(context, listen: false)
                   .setProfile(profile);
@@ -154,7 +209,7 @@ class ProfilePage extends StatelessWidget {
               // Handle kesalahan dengan menampilkan pesan kesalahan atau mengambil tindakan yang sesuai.
             }
           },
-          child: Icon(Icons.refresh),
+          child: const Icon(Icons.refresh),
         ),
       );
     });

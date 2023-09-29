@@ -197,8 +197,8 @@ class RegisterView extends StatelessWidget {
                   lastName: authProvider.lastName,
                   password: authProvider.password,
                 );
-                if (response != null && response.status == 0) {
-                  // Berhasil registrasi, lakukan navigasi ke hSalaman login
+                if (response.status == 0) {
+                  // Berhasil registrasi, lakukan navigasi ke halaman login
                   Navigator.pushReplacementNamed(context, '/login');
                 } else {
                   // Tampilkan pesan kesalahan
