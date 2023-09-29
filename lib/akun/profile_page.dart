@@ -36,6 +36,7 @@ class ProfilePage extends StatelessWidget {
                   return const CircularProgressIndicator();
                 } else {
                   // Tampilkan data profil di sini
+                  //huahahahha
                   return Column(
                     children: [
                       CircleAvatar(
