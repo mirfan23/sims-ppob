@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sims_ppob/helper/const.dart';

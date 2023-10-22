@@ -19,7 +19,7 @@ class HistoriTransaksi extends StatelessWidget {
       future: transactionProvider.fetchTransactions(token),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator(); // Menampilkan indikator loading
+          return const CircularProgressIndicator(); // Menampilkan indikator loading
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -27,7 +27,7 @@ class HistoriTransaksi extends StatelessWidget {
 
           return ListView.separated(
             shrinkWrap: true,
-            physics: ScrollPhysics(),
+            physics: const ScrollPhysics(),
             itemCount: transactions.length,
             separatorBuilder: (BuildContext context, int index) {
               return const SizedBox(height: 20);
@@ -54,13 +54,13 @@ class HistoriTransaksi extends StatelessWidget {
                       children: [
                         Text(
                           transaction.totalAmount.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 25,
                             color: Colors.green,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           transaction.serviceCode,
                         ),
@@ -68,7 +68,7 @@ class HistoriTransaksi extends StatelessWidget {
                     ),
                     Text(
                       DateFormat('dd/MMMM/yyyy').format(transaction.createdOn),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-import '../aaModel/topUp.dart';
+import '../aaModel/top_up.dart';
 import '../helper/const.dart';
 
 class TopUpProvider with ChangeNotifier {
@@ -64,7 +64,7 @@ class TopUpProvider with ChangeNotifier {
       print(response.data);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Terjadi kesalahan saat melakukan top up2'),
         ),
       );

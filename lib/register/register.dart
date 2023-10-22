@@ -14,7 +14,7 @@ class RegisterView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -92,7 +92,7 @@ class RegisterView extends StatelessWidget {
                     10,
                   ),
                 ),
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.person,
                   size: 20,
                 ),
@@ -114,7 +114,7 @@ class RegisterView extends StatelessWidget {
                     10,
                   ),
                 ),
-                prefixIcon: Icon(
+                prefixIcon: const Icon(
                   Icons.person,
                   size: 20,
                 ),
@@ -172,7 +172,7 @@ class RegisterView extends StatelessWidget {
                     10,
                   ),
                 ),
-                prefixIcon: Icon(Icons.lock, size: 20),
+                prefixIcon: const Icon(Icons.lock, size: 20),
                 suffixIcon: IconButton(
                   onPressed: () {
                     authProvider.togglePasswordVisibility();
@@ -207,8 +207,7 @@ class RegisterView extends StatelessWidget {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Registrasi Gagal'),
-                        content: Text(response?.message ??
-                            'Terjadi kesalahan saat registrasi.'),
+                        content: Text(response.message),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () {

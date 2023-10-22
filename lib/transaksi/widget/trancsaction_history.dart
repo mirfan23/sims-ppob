@@ -20,13 +20,13 @@ class TransactionHistoryPage extends StatelessWidget {
         builder: (context, provider, _) {
           if (transactionRecords.isEmpty) {
             // Tampilkan pesan jika data transaksi kosong
-            return Center(
+            return const Center(
               child: Text('No transaction history available.'),
             );
           } else {
             // Tampilkan daftar transaksi jika data tersedia
             return ListView.builder(
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
               itemCount: transactionRecords.length,
               itemBuilder: (context, index) {

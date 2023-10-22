@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sims_ppob/home/home_provider.dart';
@@ -20,7 +22,7 @@ class _SaldoState extends State<Saldo> {
       final balanceProvider = Provider.of<HomeProvider>(context);
       final int saldo = balanceProvider.balance;
       final bool isBalanceVisible = balanceProvider.isBalanceVisible;
-      String SaldoText = isBalanceVisible ? 'Rp $saldo' : 'Rp ******';
+      String saldoText = isBalanceVisible ? 'Rp $saldo' : 'Rp ******';
       final token = authProvider.token;
 
       return Container(
@@ -49,7 +51,7 @@ class _SaldoState extends State<Saldo> {
                 height: 13,
               ),
               Text(
-                SaldoText,
+                saldoText,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

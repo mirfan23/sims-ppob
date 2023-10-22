@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../helper/myList.dart';
+import '../../helper/my_list.dart';
 import '../top_up_provider.dart';
 
 class GridNominal extends StatelessWidget {

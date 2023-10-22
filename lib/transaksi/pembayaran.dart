@@ -58,7 +58,7 @@ class Transaksi2 extends StatelessWidget {
       } else {
         // Handle kesalahan lainnya jika diperlukan
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Terjadi kesalahan saat melakukan transaksi.'),
           ),
         );
@@ -66,7 +66,7 @@ class Transaksi2 extends StatelessWidget {
     } catch (e) {
       // Tangani kesalahan koneksi atau lainnya jika diperlukan
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Terjadi kesalahan saat melakukan transaksi.'),
         ),
       );
@@ -79,31 +79,31 @@ class Transaksi2 extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Transaksi - $serviceCode', // Menampilkan service_code
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              SaldoTransaksi(),
+              const SaldoTransaksi(),
               Text(
                 'Total Amount: $totalAmount', // Tampilkan totalAmount
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 controller: TextEditingController(
                     text: totalAmount
                         .toString()), // Set nilai awal teks dari totalAmount
                 readOnly: true, // Agar teks tidak dapat diubah
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Total Amount',
                   border: OutlineInputBorder(),
                 ),
@@ -113,7 +113,7 @@ class Transaksi2 extends StatelessWidget {
                   onPressed: () {
                     _performTransaction(context);
                   },
-                  child: Text('Lakukan Transaksi'),
+                  child: const Text('Lakukan Transaksi'),
                 ),
               ),
             ],
